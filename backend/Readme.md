@@ -28,4 +28,25 @@
 - //User.model.js for modelling userdata
 - //Job.model.js for modelling job data
 
-2. set up the User.model.js and Job.model.js
+2. set up the //User.model.js and //Job.model.js
+
+## Server SetUp
+
+### Setuping //app.js
+1. create a //app.js inside /src where our server code will lie
+2. It will helps to create a express application that will handle all our middlewares, routes, and other configs that appliction needs to run.
+3. import:
+- express: for routing, api, static file serving
+- cors: allows frontend to easily communicate with the backend through apis hosted on different domains.
+- cookieParser: helps securely store user session information as a cookie on their browser and it automatically reads this cookie from the user's browser, allowing the server to recognize and authenticate the user without need to login again
+4. config //app.js and export it
+
+### Setuping //index.js
+
+1. It is the starting point of the application, handle db connection, middlewares, routes, starts the application
+2. create a //index.js inside /src , it is the starting point of the applicattion
+3. import :
+- dotenv: for loding the envinmental varibales from the .env file
+- dbConnect: for making connection with the datbase
+4. config the //index.js --> config dotenv --> establish db connection
+  

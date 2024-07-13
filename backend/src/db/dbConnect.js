@@ -3,7 +3,7 @@ import {DATABASE_NAME} from "../constants"
 
 const dbConnect = async () => {
     try {
-        const connectionInstance = mongoose.connect(`${process.env.MONGODB_URI}/${DATABASE_NAME}`,{
+        const connectionInstance = await mongoose.connect(`${process.env.MONGODB_URI}/${DATABASE_NAME}`,{
             useNewUrlParser: true,
             useUnifiedTopology: true,
         })
