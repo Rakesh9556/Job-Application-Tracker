@@ -39,7 +39,9 @@
 - express: for routing, api, static file serving
 - cors: allows frontend to easily communicate with the backend through apis hosted on different domains.
 - cookieParser: helps securely store user session information as a cookie on their browser and it automatically reads this cookie from the user's browser, allowing the server to recognize and authenticate the user without need to login again
-4. config //app.js and export it
+4. using app.use(), allow the server to accept json data and url data along with object
+5. config for allowing cookiParser to parse cookies
+6. config //app.js and export it
 
 ### Setuping //index.js
 
@@ -48,5 +50,20 @@
 3. import :
 - dotenv: for loding the envinmental varibales from the .env file
 - dbConnect: for making connection with the datbase
-4. config the //index.js --> config dotenv --> establish db connection
+- {app} for establishing connection
+5. config the //index.js --> config dotenv --> establish db connection
+6. dbConnect return a promise --> if it reslove the promise then if any error come return the error or console the server listening port 
+
+### Setuping AsyncHandleler to standarized all our async operntions in a systematic way
+
+-  Asynchandeler is a utility so create a /util inside the /src where all our utility files will be stored
+- it is a higher order function that helps to manage errors in asynchronous functions used in an express application
+- It takes  asynchronous function (requestHandeler) as an input that might throw an error and returns a new function that calls the requestHandeler and catch any errors and pass these errors to the express error handeler
+
+
+### Setuping //ApiError.js to standarized all errors that comes during the application
+
+1. Create a //ApiError.js inside the /utils
+2. Define the ApiError class by extending the built in Error class of javascript
+3. 
   
