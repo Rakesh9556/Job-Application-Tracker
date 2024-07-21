@@ -10,14 +10,14 @@ class ApiError extends Error {
     ) {
         super(message); // call the constructor of the parent class "Error", it will ensure that ApiError  constructor is properly initialized
         this.statusCode = statusCode // assigns the value of the statusCode parameter to the statusCode property of the ApiError instance
-        this.data = null
-        this.success = false
-        this.errors = errors
+        this.data = null // stores the additional data 
+        this.success = false // indicates failure 
+        this.errors = errors // detailed error
 
         if(stack) {
             this.stack = stack
         }else {
-            Error.captureStackTrace(this, this.constructor)
+            Error.captureStackTrace(this, this.constructor);
         }
 
     }

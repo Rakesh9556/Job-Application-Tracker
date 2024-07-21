@@ -61,9 +61,23 @@
 - It takes  asynchronous function (requestHandeler) as an input that might throw an error and returns a new function that calls the requestHandeler and catch any errors and pass these errors to the express error handeler
 
 
-### Setuping //ApiError.js to standarized all errors that comes during the application
+### Setuping //ApiError.js and //ApiResponse.js to standarized all errors and responses that comes during the application building
 
 1. Create a //ApiError.js inside the /utils
 2. Define the ApiError class by extending the built in Error class of javascript
-3. 
+3. using constructors set the firelds and config the file 
+3. similarly create //ApiResponse.js inside the  /utils and config it 
+4. at last export bothe the util files
+
+
+### Configuring //User.model.js
+1. create methods for generating accessToken and refreshToken
+- using userSchema.methods we can create new methods that are accessible on documents of the schema 
+- import jwt to  generate jwt token
+
+### Generate access token
+1. create a accessToken method
+2. using jwt.sign() create a jwt token and pass things:
+- jwt.sign(payload, secret, [options, callback])
+- payload is the object that contains the data we want to include in the token (ex: _id, email, username, fullName, etc)
   

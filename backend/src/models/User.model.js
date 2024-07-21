@@ -72,4 +72,34 @@ const UserSchema = new Schema({
 }
 )
 
+
+// generating accessToken
+UserSchema.methods.generateAccessToken = () => {
+    return jwt.sign(
+        {
+            _id: this._id,
+            username: this.username,
+            email: this.email,
+            fullName: this.fullName
+        },
+        process.env.ACCESS_TOKEN_SECRET,
+        {
+            expiresIn: process.env.ACCESS_TOKEN_EXPIRY
+        }
+    )
+}
+
+// generating refresh token
+UserSchema.methods.genrateRefreshToken = () => {
+    return jwt.sign(
+        {
+            _id: this._id
+        },
+        process.env.REFRESH_TOKEN_SECRET,
+        {
+            expiresIn: process.env.REFRESH_TOKEN_EXPIRY
+        }
+    )
+}
+
 export const UserModel = mongoose.model("User", UserSchema);
