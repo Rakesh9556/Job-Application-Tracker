@@ -80,4 +80,47 @@
 2. using jwt.sign() create a jwt token and pass things:
 - jwt.sign(payload, secret, [options, callback])
 - payload is the object that contains the data we want to include in the token (ex: _id, email, username, fullName, etc)
+- create a secret string using sha-256 and stores it in ACESS_TOKEN_SECRET in //.env and similarly create a ACCESS_TOKEN_EXPIRY and store the expiry time in it
+
+<i>Note: Similarly create a method for generating refresh token and store the REFRESH_TOKEN_SECRET and REFRESH_TOKEN_EXPIRY in //.env</i> 
+
+
+## Writing Controllers
+
+### User controller 
+- responsible for handling user requests, performing business logic, interacting with data models, and returning appropriate responses. 
+
+#### (setup)
+1. create a /controller inside /src
+2. create a //User.controller.js inside /controller
+3. similarly create more controller if needed respectively
+
+#### (creation)
+1. import:
+- asyncHandeler for handelling async responses
+- User on which we will work on
+- APIError and APIResponse for effictively handelling the errors and responses
+- jwt for bcrypting the password and storing 
+
+2. create a generateAccessAndRefreshToken method that will genenrate token to authorize the user when needed
+- access the user by accessing User model using findById()
+- for that user generate the accessToken and refreshToken
+- check the accessToken and refreshToken has some value or not if not throw APIError
+- if it exist then store the refershToken in the server in reference user
+- at last save the user with validateBeforeSave: false
+<i>Note: uvalidateBeforeSave option is set to false because while saving the user the we don't need our data to pass checkmarks or it will hit a password generating method again, so it is used to forcefully save the data without doing any validation. We can also do the same thing using .updateOne(), .findByIdAndUpdate()</i> 
+
+#### registering user
+1. create a registerUser method using the asyncHandeler
+2. do these:
+- get user detail from frontend - (present in req.body)
+- validation - not empty
+- check if user is already exists: username, email
+- create user object  - create entry in db
+- remove password and referesh token field from response 
+- check for user creation
+- return response
+
+
+
   
