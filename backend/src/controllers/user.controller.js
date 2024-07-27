@@ -30,8 +30,49 @@ const generateAccessAndRefreshToken = async (userId) => {
 
     // registering the user
     const registerUser = asyncHandeler(async (req, res) => {
-        const user = req.body[username, fullname, email, password];
 
-        ///
+        // accesiing fields from the frontend
+        const {fullname, username, email, password} = req.body
+
+        // validate the fields
+        if([fullname, username, email, password].some((field) => field?.trim() === "")) {
+            throw new ApiError(400, "All fields are required")
+        }
+
+        // check if user is already exist or not
+        const existerdUser = User.findOne({
+            $or: [{email}, {username}]
+        })
+
+        if(existerdUser) {
+            throw new ApiError(400, "Email or username already exists!")
+        }
+
+        // all cases handle now create a user object and store it
+        const user = await User.create({
+            fullname,
+            email,
+            password,
+            username : username.toLowerCase()
+
+        })
+
+        // return the creaeted user in response to the client 
+        // remove sensitive fileds using select keyword
+        const createdUser = User.findById(user._id).select(
+            "-password -refreshToken"
+        )
+
+        // check if the user is created or not
+        if(!createdUser) {
+            throw new ApiError(500, "Something went wrong! Try again")
+        }
+
+        // if user successfully exist show the message that user created
+        return res.status(201).json(
+            new ApiResponse(200, createdUser, "User registered successfully")
+        )
+
+        
     })
 }
